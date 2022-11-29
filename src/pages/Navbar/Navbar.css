@@ -1,0 +1,27 @@
+nav {
+    display: flex;
+    justify-content: center;
+    
+    align-items: center;
+    background-color:#f6f8fa ;
+
+}
+
+#logo-with-img {
+    display: flex;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 2em;
+    font-weight: bold;
+    max-width: 100%;
+    color:rgb(46, 46, 54);
+
+}
+
+ #logo-img {
+    width: 60px;
+    flex-shrink: 0;
+    /* preventing stretching of the image in flexbox: 
+    align-self: center; */
+    padding-right: 10px;
+}

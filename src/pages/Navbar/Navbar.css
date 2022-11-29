@@ -1,9 +1,10 @@
 nav {
     display: flex;
-    justify-content: center;
-    
+    /* justify-content: center; */
+    height: 60px;
     align-items: center;
     background-color:#f6f8fa ;
+    padding-left: 50px;
 
 }
 

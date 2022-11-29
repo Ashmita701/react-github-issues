@@ -15,7 +15,6 @@ export const getAllData = async (pageNum, itemsPerPage) => {
         const getOrgRepo = await axios.get(BASE_URL);
 
         const orgRepo = getOrgRepo.data
-        console.log({ orgRepo })
 
         if (!orgRepo) return errorMsg.noData;
 
@@ -32,7 +31,6 @@ export const getAllData = async (pageNum, itemsPerPage) => {
     }
 
     catch (err) {
-        console.log({ err });
         return errorMsg.noData;
     }
 }
@@ -42,7 +40,6 @@ export const getSearchData = async (query) => {
 
     try {
         const getIssues = await axios.get(`https://api.github.com/search/issues?repo=facebook/react&q=${query}`);
-        console.log(getIssues)
         const issues = getIssues.data
 
         if (!issues) return errorMsg.noData;

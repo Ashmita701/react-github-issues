@@ -28,6 +28,10 @@
     border-radius: 50%;
     width:60px;
 }
+.issue_wrap_all > figure > svg {
+    border-radius: 50%;
+    width:60px;
+}
 
 figcaption {
     font-size: 15px;
@@ -89,11 +93,11 @@ figcaption {
     /* align-items: center; */
 }
 
-.issue_wrap_right > img {
-    width: 19px;
+.issue_wrap_right > svg {
+    width: 16px;
     vertical-align: bottom;
     margin-right: 4px;
-    height: 20px;
+    height: 18px;
 }
 
 

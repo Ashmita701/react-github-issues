@@ -34,7 +34,6 @@ export default function IssueListPage(props) {
 
     const [orgRepoValue, setOrgRepoValue] = useState(urlOrgRepo());
 
-    const { org, repo } = orgRepoValue;
 
 
     const [pageNum, setPageNum] = useState(urlPageNum());
@@ -48,7 +47,6 @@ export default function IssueListPage(props) {
 
 
     const [searchParams, setSearchParams] = useState("");
-    const [queryParams, setQueryParams] = useState("");
 
 
     const [filterIssue, setFilterIssue] = useState([]);
@@ -57,7 +55,6 @@ export default function IssueListPage(props) {
     const handleSearchSubmit = (e) => {
         e.preventDefault();
         setSearchParams(e.target.value)
-        setQueryParams(e.target.value)
     }
 
     const handleBackHomeClick = () => {
@@ -79,7 +76,6 @@ export default function IssueListPage(props) {
 
     useEffect(() => {
         getAllData(pageNum, itemsPerPage).then(res => {
-            console.log({ res })
             setAllData(res);
         }
         )
@@ -98,9 +94,7 @@ export default function IssueListPage(props) {
                 lowerCaseTitle.includes(lowerCaseSearch) ||
                 lowerCaseUser.includes(lowerCaseSearch)
             );
-            // return issue.title.toLowerCase().includes(this.state.search.toLowerCase()) || issue.user.login.includes(this.state.search.toLowerCase());
         });
-        console.log('filteredData', filteredData);
         setFilterIssue(filteredData);
 
     }, [allData, searchParams, issues]);
@@ -120,13 +114,12 @@ export default function IssueListPage(props) {
 
                 <div id='alldata_message'>
                     <p>{allData.message}</p>
-                    {!allData.message.includes('API') &&
-                        <Link to='/' className='message_link'
-                            onClick={handleBackHomeClick}
-                        >
-                            &lt; Back to home page
-                        </Link>
-                    }
+                    <Link to='/' className='message_link'
+                        onClick={handleBackHomeClick}
+                    >
+                        &lt; Back to home page
+                    </Link>
+
                 </div>
             </React.Fragment>
         );
@@ -176,7 +169,7 @@ export default function IssueListPage(props) {
                         placeholder='Search...'
                         onKeyUp={e => handleSearchSubmit(e)}
                     />
-                    {/* <AiOutlineSearch size={22} className="search_icon" /> */}
+                    <AiOutlineSearch size={22} className="search_icon" />
                 </div>
 
 

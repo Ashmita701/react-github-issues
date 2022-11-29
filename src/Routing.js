@@ -9,12 +9,12 @@ import { Navbar } from "./pages/Navbar/Navbar";
 const Routing = () => {
     return (
         <div>
-            <Navbar/>
-          <Routes>
-             <Route path={"/"} element={<IssueListPage />} />
-             <Route path={'/issue/:issueNum'}element={<IssueDetailsPage/>} />
+            <Navbar />
+            <Routes>
+                <Route path={"/"} element={<IssueListPage />} />
+                <Route path={'/issue/:issueNum'} element={<IssueDetailsPage />} />
 
-          </Routes>
+            </Routes>
         </div>
     )
 }

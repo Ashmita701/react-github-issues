@@ -1,4 +1,5 @@
 import React from 'react';
+import { AiFillGithub } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
@@ -8,8 +9,8 @@ export function Navbar() {
         <nav>
             <Link to='/' className='link'>
                 <div id='logo-with-img'>
-                    <img src="./Assests/Images/GitHub-Mark.png" alt='site-logo' id='logo-img' />
-                    GitHub - Issues
+                    <AiFillGithub id="logo-img" size={40} />
+                    GITHUB ISSUES
                 </div>
             </Link>
         </nav>

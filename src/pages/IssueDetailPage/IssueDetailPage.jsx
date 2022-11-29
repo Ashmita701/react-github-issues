@@ -42,7 +42,6 @@ export default function IssueDetailsPage() {
     useEffect(() => {
         if (chosenIssue && commentsExist) {
             getIssueComments(chosenIssue.comments_url).then(res => {
-                console.log('res', res);
                 if (Array.isArray(res)) setIssueComments(res);
             })
         }

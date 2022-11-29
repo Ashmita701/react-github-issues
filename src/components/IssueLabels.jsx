@@ -9,7 +9,7 @@ export function IssueLabels({ labels }) {
             <p key={label.id}
                 style={{
                     border: `3px solid #${label.color}`, backgroundColor: `#${label.color}`,
-                    color: label.name === "Status: Unconfirmed" || label.name === "CLA Signed" || label.name === "Component: Server Rendering" ? "#000" : "#fff"
+                    color: label.name === "Type: Bug" ? "#fff" : "#000"
                 }}>
                 {label.name}
             </p>);

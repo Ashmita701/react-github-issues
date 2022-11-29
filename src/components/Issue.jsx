@@ -8,6 +8,7 @@ import '../css/IssueList/Issue.css';
 import { UserDetails } from './UserDetails';
 import { TimeAgo } from './TimeAgo';
 import { AiOutlineInfoCircle } from "react-icons/ai";
+import { FaRegCommentAlt } from "react-icons/fa";
 
 export function Issue({ issue, fullName, pageNum }) {
 
@@ -26,15 +27,7 @@ export function Issue({ issue, fullName, pageNum }) {
     const repo = orgRepoArr[1];
     const navigation = useNavigate();
 
-    const issueLink = {
-        pathname: `/issue/${number}`,
-        state: {
-            issueNumber: number,
-            pageNumber: pageNum,
-            org: org,
-            repo: repo,
-        }
-    };
+
 
     const onClickLink = (e) => {
         e.preventDefault();
@@ -42,9 +35,6 @@ export function Issue({ issue, fullName, pageNum }) {
             {
                 state: {
                     issueNumber: number,
-                    pageNumber: pageNum,
-                    org: org,
-                    repo: repo,
                 }
             });
 
@@ -71,7 +61,8 @@ export function Issue({ issue, fullName, pageNum }) {
             </div>
             {comments > 0 &&
                 <div className='issue_wrap_right'>
-                    <img src={'./Assests/Images/comment.png'} alt='comment_icon' />
+                    {/* <img src={'/../Assests/Images/comment.png'} alt='comment_icon' /> */}
+                    <FaRegCommentAlt />
                     {comments}
                 </div>
             }

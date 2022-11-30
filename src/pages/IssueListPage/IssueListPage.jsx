@@ -17,14 +17,8 @@ export default function IssueListPage(props) {
 
     const isHomeUrl = pathname === '/';
 
-    const homeOrgRepo = { org: 'facebook', repo: 'react' };
 
-    const urlOrgRepo = () => {
-        if (isHomeUrl) return homeOrgRepo;
-        if (!state) return { org: '', repo: '' };
-        const { issueNumber, pageNumber, ...orgRepo } = state;
-        return orgRepo;
-    }
+
 
     const urlPageNum = () => {
         if (isHomeUrl) return 1;
@@ -32,7 +26,6 @@ export default function IssueListPage(props) {
         return state.pageNumber;
     }
 
-    const [orgRepoValue, setOrgRepoValue] = useState(urlOrgRepo());
 
 
 
@@ -43,13 +36,15 @@ export default function IssueListPage(props) {
 
     const [allData, setAllData] = useState({});
 
-    const [isLoading, setIsLoading] = useState(true);
 
 
     const [searchParams, setSearchParams] = useState("");
 
 
     const [filterIssue, setFilterIssue] = useState([]);
+    const [issueCount, setIssueCount] = useState()
+    const [errMsg, setErrMsg] = useState("")
+    const [reload, setReload] = useState(false)
 
 
     const handleSearchSubmit = (e) => {
@@ -59,6 +54,8 @@ export default function IssueListPage(props) {
 
     const handleBackHomeClick = () => {
         setSearchParams("");
+        window.location.reload()
+
     };
 
     const handleSetPageNumber = num => {
@@ -86,16 +83,28 @@ export default function IssueListPage(props) {
 
     }, [pageNum]);
     useEffect(() => {
-        const filteredData = issues?.filter(issue => {
-            const lowerCaseTitle = issue?.title?.toLowerCase();
-            const lowerCaseUser = issue?.user?.login?.toLowerCase();
-            const lowerCaseSearch = searchParams?.toLowerCase();
-            return (
-                lowerCaseTitle.includes(lowerCaseSearch) ||
-                lowerCaseUser.includes(lowerCaseSearch)
-            );
-        });
-        setFilterIssue(filteredData);
+        if (searchParams) {
+            getSearchData(searchParams, itemsPerPage, pageNum).then(res => {
+                // setAllData(res);
+                setFilterIssue(res?.issues?.items)
+                setIssueCount(res.open_issues_count)
+                if (res.message) {
+                    setErrMsg(res.message)
+                    setFilterIssue(issues)
+                    setIssueCount(open_issues_count)
+                }
+
+            }
+            ).catch((err) => {
+                console.log(err, "message")
+                setErrMsg(err)
+
+            })
+        }
+        else {
+            setFilterIssue(issues)
+            setIssueCount(open_issues_count)
+        }
 
     }, [allData, searchParams, issues]);
 
@@ -157,6 +166,19 @@ export default function IssueListPage(props) {
             </div>
         </React.Fragment>
     )
+    if (errMsg) return (
+        <React.Fragment>
+
+            <div id='alldata_message'>
+                <p>{errMsg}</p>
+                <Link to='/' className='message_link'
+                    onClick={handleBackHomeClick}
+                >
+                    &lt; Back to home page
+                </Link>
+            </div>
+        </React.Fragment>
+    )
 
 
     return (
@@ -179,12 +201,12 @@ export default function IssueListPage(props) {
 
                 <IssuesList issues={filterIssue}
                     fullName={full_name}
-                    openIssuesNum={open_issues_count}
+                    openIssuesNum={issueCount}
                     pageNum={pageNum}
                     handleItemsPerPage={handleItemsPerPage}
                     itemsPerPage={itemsPerPage}
                 />
-                <Pagination openIssuesNum={open_issues_count}
+                <Pagination openIssuesNum={issueCount}
                     pageNum={pageNum}
                     itemsPerPage={itemsPerPage}
                     handleSetPageNumber={handleSetPageNumber}
